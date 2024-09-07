@@ -109,7 +109,7 @@ def detection(data,
     # 새로 추가된 초기값
     list_row = []
     
-    class_counter = {}
+    class_counter = 0
     
     os.path.join(os.path.dirname(__file__), '..', 'test', 'result')
     
@@ -187,14 +187,12 @@ def detection(data,
                     class_name = f'{cls}'
 
                     # Initialize class counter if not already initialized
-                    if class_name not in class_counter:
-                        class_counter[class_name] = 0
 
                     # Increment the class counter
-                    class_counter[class_name] += 1
+                    class_counter += 1
 
                     # Create the filename: class_name + "__" + order
-                    crop_filename = f"{class_name}_{class_counter[class_name]}.jpg"
+                    crop_filename = f"{class_counter}_{class_name}.jpg"
                     crop_path = result_dir / crop_filename
                     print(f"Attempting to save cropped image to: {crop_path}")
 
