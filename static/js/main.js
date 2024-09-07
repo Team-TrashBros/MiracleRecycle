@@ -88,17 +88,32 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     function displayClassificationResult(result) {
-        classificationResult.innerHTML = `
+        var len = Object.keys(result).length;
+        for(i = 0; i < len; i++) {
+            text += `
             <div class="flex items-center space-x-2">
-                <i data-feather="${result.icon}" class="h-6 w-6 ${result.icon_color}"></i>
-                <h3 class="text-xl font-semibold">${result.name}</h3>
+                <i data-feather="${result[i].icon}" class="h-6 w-6 ${result[i].icon_color}"></i>
+                <h3 class="text-xl font-semibold">${result[i].name}</h3>
             </div>
-            <p class="text-gray-600">${result.description}</p>
+            <p class="text-gray-600">${result[i].description}</p>
             <div class="bg-blue-100 p-4 rounded-md">
                 <h4 class="font-semibold text-blue-800 mb-2">처리 방법:</h4>
-                <p class="text-blue-700">${result.disposal_method}</p>
+                <p class="text-blue-700">${result[i].disposal_method}</p>
             </div>
-        `;
+        `
+        }
+        classificationResult.innerHTML = text;
+        // classificationResult.innerHTML = `
+        //     <div class="flex items-center space-x-2">
+        //         <i data-feather="${result.icon}" class="h-6 w-6 ${result.icon_color}"></i>
+        //         <h3 class="text-xl font-semibold">${result.name}</h3>
+        //     </div>
+        //     <p class="text-gray-600">${result.description}</p>
+        //     <div class="bg-blue-100 p-4 rounded-md">
+        //         <h4 class="font-semibold text-blue-800 mb-2">처리 방법:</h4>
+        //         <p class="text-blue-700">${result.disposal_method}</p>
+        //     </div>
+        // `;
         classificationResult.classList.remove('hidden');
         feather.replace();
     }

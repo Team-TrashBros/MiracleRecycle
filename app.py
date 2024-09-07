@@ -315,10 +315,16 @@ def classify_waste():
         print(tLst)
         print(tLst[0])
         print(waste_types[tLst[0]])
+
+        result = {}
+        cnt = 0
+        for i in tLst:
+            result[cnt] = waste_types[i]
+            cnt += 1
         
         classification_result = waste_types[tLst[0]]
-
-        return jsonify(classification_result)
+        return jsonify(result)
+        # return jsonify(classification_result)
 
 @app.route('/upload', methods=['POST'])
 def upload_image():
