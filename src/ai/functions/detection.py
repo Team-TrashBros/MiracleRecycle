@@ -194,7 +194,7 @@ def detection(data,
                     class_counter[class_name] += 1
 
                     # Create the filename: class_name + "__" + order
-                    crop_filename = f"{class_name}__{class_counter[class_name]}.jpg"
+                    crop_filename = f"{class_name}_{class_counter[class_name]}.jpg"
                     crop_path = result_dir / crop_filename
                     print(f"Attempting to save cropped image to: {crop_path}")
 
