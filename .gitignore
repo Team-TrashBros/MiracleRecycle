@@ -424,4 +424,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+src/ai/runs/train/
+
 # End of https://www.toptal.com/developers/gitignore/api/flask,python,windows,vuejs,visualstudiocode,pycharm
