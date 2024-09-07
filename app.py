@@ -2,7 +2,13 @@ from flask import Flask, render_template, request, jsonify
 import random
 import base64
 import os
+import sys
 import time
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__))))
+
+from src.ai.functions.Basefunctions_for_ai import *
+from src.ai.functions.detection import *
 
 app = Flask(__name__)
 
@@ -174,7 +180,31 @@ def classify_waste():
     # 이 예제에서는 랜덤하게 쓰레기 유형을 선택합니다.
     classification_result = random.choice(random.choice(waste_types)['subcategories'])
 
-    return jsonify(classification_result)
+    opt.data = check_file(opt.data)  # check file
+    print(opt)
+
+    if opt.task in ['val', 'test']:  # run normally
+
+        tLst = detection(opt.data,
+            opt.weights,
+            opt.batch_size,
+            opt.img_size,
+            opt.conf_thres,
+            opt.iou_thres,
+            opt.save_json,
+            opt.save_ans_log,
+            opt.single_cls,
+            opt.augment,
+            opt.verbose,
+            save_txt=opt.save_txt,
+            save_conf=opt.save_conf,
+            )
+        now = datetime.now()
+        print('\n')
+        print("Model Test End at ", now)
+        print(tLst)
+
+        return jsonify(classification_result)
 
 @app.route('/upload', methods=['POST'])
 def upload_image():
