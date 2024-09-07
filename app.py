@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_from_directory
 import random
 import base64
 import os
@@ -15,7 +15,7 @@ app = Flask(__name__)
 # 저장할 경로 설정
 SAVE_FOLDER = 'src/ai/data/test'  # 원하는 저장 경로로 설정
 os.makedirs(SAVE_FOLDER, exist_ok=True)  # 폴더가 없으면 생성
-
+app.config['UPLOAD_FOLDER'] = SAVE_FOLDER
 # names: [ 'can_steel', 'can_aluminium', 'paper', 'PET_transparent' ,'PET_color' ,'plastic_PE', 'plastic_PP', 'plastic_PS', 'styrofoam' ,'plastic_bag' ,'glass_brown' ,'glass_green' ,'glass_transparent' ,'battery' ,'light' ]
 
 # waste_types = [
@@ -313,13 +313,13 @@ def classify_waste():
         print('\n')
         print("Model Test End at ", now)
         print(tLst)
-        print(tLst[0])
-        print(waste_types[tLst[0]])
 
         result = {}
         cnt = 0
         for i in tLst:
             result[cnt] = waste_types[i]
+            result[cnt]['filename'] = cnt+'_'+i+'.jpg'
+            print(result[cnt]['filename'])
             cnt += 1
         
         classification_result = waste_types[tLst[0]]
@@ -348,6 +348,10 @@ def upload_image():
     except Exception as e:
         print(f"이미지 저장 실패: {e}")
         return jsonify({'message': '이미지 저장 실패'}), 500
+
+@app.route('/test/<filename>')
+def serve_image(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

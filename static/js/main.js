@@ -88,10 +88,18 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     function displayClassificationResult(result) {
+        
         var len = Object.keys(result).length;
         text = '';
         for(i = 0; i < len; i++) {
+            const imageName = `${result[i].filename}`; // 불러올 이미지 파일 이름
+            const imagePath = `/test/${imageName}`; // Flask 서버에서 제공하는 경로
             text += `
+            <div id="result-container" class="hidden space-y-4">
+                <div class="aspect-w-16 aspect-h-9 bg-black rounded-lg overflow-hidden">
+                     <img src="${imagePath}" alt="Captured waste" class="w-full h-full object-cover" />
+                </div>
+            </div>
             <div class="flex items-center space-x-2">
                 <i data-feather="${result[i].icon}" class="h-6 w-6 ${result[i].icon_color}"></i>
                 <h3 class="text-xl font-semibold">${result[i].name}</h3>
@@ -103,6 +111,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             </div>
         `
         }
+        
         classificationResult.innerHTML = text;
         // classificationResult.innerHTML = `
         //     <div class="flex items-center space-x-2">
