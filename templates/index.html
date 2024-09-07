@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>쓰레기 분류 가이드</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md mx-auto">
+        <h1 class="text-3xl font-bold text-center text-gray-900 mb-8">쓰레기 분류 가이드</h1>
+        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+            <div class="px-4 py-5 sm:px-6">
+                <h2 class="text-lg leading-6 font-medium text-gray-900">쓰레기 사진 촬영</h2>
+                <p class="mt-1 max-w-2xl text-sm text-gray-500">카메라로 쓰레기 사진을 찍어 분류해보세요.</p>
+            </div>
+            <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+                <div class="sm:p-6">
+                    <div id="camera-container" class="space-y-4">
+                        <div class="aspect-w-16 aspect-h-9 bg-black rounded-lg overflow-hidden">
+                            <video id="video" autoplay playsinline class="w-full h-full object-cover"></video>
+                        </div>
+                        <div class="flex justify-center space-x-4">
+                            <button id="start-camera" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                <i data-feather="camera" class="mr-2 h-4 w-4"></i>
+                                카메라 시작
+                            </button>
+                            <button id="capture-image" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                사진 촬영
+                            </button>
+                        </div>
+                    </div>
+                    <div id="result-container" class="hidden space-y-4">
+                        <div class="aspect-w-16 aspect-h-9 bg-black rounded-lg overflow-hidden">
+                            <img id="captured-image" alt="Captured waste" class="w-full h-full object-cover" />
+                        </div>
+                        <div class="flex justify-center space-x-4">
+                            <button id="classify-waste" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                분류하기
+                            </button>
+                            <button id="reset-classification" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                <i data-feather="refresh-cw" class="mr-2 h-4 w-4"></i>
+                                다시 찍기
+                            </button>
+                        </div>
+                    </div>
+                    <div id="classification-result" class="hidden mt-6 space-y-4">
+                        <!-- 분류 결과가 여기에 표시됩니다 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
