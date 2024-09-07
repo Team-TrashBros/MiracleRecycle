@@ -1,7 +1,14 @@
 from flask import Flask, render_template, request, jsonify
 import random
+import base64
+import os
+import time
 
 app = Flask(__name__)
+
+# 저장할 경로 설정
+SAVE_FOLDER = 'src/ai/data/test'  # 원하는 저장 경로로 설정
+os.makedirs(SAVE_FOLDER, exist_ok=True)  # 폴더가 없으면 생성
 
 waste_types = [
     {
@@ -167,6 +174,28 @@ def classify_waste():
     classification_result = random.choice(random.choice(waste_types)['subcategories'])
 
     return jsonify(classification_result)
+
+@app.route('/upload', methods=['POST'])
+def upload_image():
+    data = request.json
+    image_data = data.get('image')
+
+    if not image_data:
+        return jsonify({'message': '이미지 데이터가 없습니다.'}), 400
+
+    try:
+        # 이미지 파일명 설정
+        file_name = f"captured-image-{int(time.time())}.jpg"
+        save_path = os.path.join(SAVE_FOLDER, file_name)
+
+        # Base64 문자열을 바이너리 데이터로 변환하여 저장
+        with open(save_path, "wb") as file:
+            file.write(base64.b64decode(image_data))
+
+        return jsonify({'message': '이미지 저장 성공', 'path': save_path}), 200
+    except Exception as e:
+        print(f"이미지 저장 실패: {e}")
+        return jsonify({'message': '이미지 저장 실패'}), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

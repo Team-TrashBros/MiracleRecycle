@@ -25,12 +25,43 @@ document.addEventListener('DOMContentLoaded', (event) => {
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         canvas.getContext('2d').drawImage(video, 0, 0);
-        capturedImage.src = canvas.toDataURL('image/jpeg');
+        const imageDataUrl = canvas.toDataURL('image/jpeg');
+        capturedImage.src = imageDataUrl;
         cameraContainer.classList.add('hidden');
         resultContainer.classList.remove('hidden');
         if (stream) {
             stream.getTracks().forEach(track => track.stop());
         }
+
+        // // 파일 다운로드 링크 생성 및 클릭
+        // const downloadLink = document.createElement('a');
+        // downloadLink.href = imageDataUrl;
+
+        // // 원하는 파일명을 설정
+        // downloadLink.download = 'captured-image.jpg';
+
+        // // 링크를 DOM에 추가하고 자동으로 클릭한 후 제거
+        // document.body.appendChild(downloadLink);
+        // downloadLink.click();
+        // document.body.removeChild(downloadLink);
+        // 서버로 이미지 전송
+
+        const base64Image = imageDataUrl.split(',')[1];
+        
+        fetch('/upload', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ image: base64Image }) // Base64 이미지 데이터 전송
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('이미지 저장 완료:', data);
+        })
+        .catch(error => {
+            console.error('이미지 저장 실패:', error);
+        });
     });
 
     classifyWasteButton.addEventListener('click', async () => {
