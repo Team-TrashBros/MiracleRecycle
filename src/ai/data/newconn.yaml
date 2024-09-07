@@ -1,0 +1,17 @@
+# train and val datasets (image directory or *.txt file with image paths)
+train: src/ai/data/train/  # 3,512 images
+val: src/ai/data/val/  # 439 images
+test: src/ai/data/test/  # 439 images
+
+# train: ${TRAIN_DIR}
+# val: ${VAL_DIR}
+# test: ${TEST_DIR}
+
+
+# number of classes
+nc: 15
+
+# class names
+
+names: [ 'can_steel', 'can_aluminium', 'paper', 'PET_transparent' ,'PET_color' ,'plastic_PE', 'plastic_PP', 'plastic_PS',
+         'styrofoam' ,'plastic_bag' ,'glass_brown' ,'glass_green' ,'glass_transparent' ,'battery' ,'light' ]
