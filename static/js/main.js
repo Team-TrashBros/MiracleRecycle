@@ -89,6 +89,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     function displayClassificationResult(result) {
         var len = Object.keys(result).length;
+        text = '';
         for(i = 0; i < len; i++) {
             text += `
             <div class="flex items-center space-x-2">

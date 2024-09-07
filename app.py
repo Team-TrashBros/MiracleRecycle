@@ -323,6 +323,7 @@ def classify_waste():
             cnt += 1
         
         classification_result = waste_types[tLst[0]]
+        print(result)
         return jsonify(result)
         # return jsonify(classification_result)
 
