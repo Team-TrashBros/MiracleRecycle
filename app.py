@@ -313,10 +313,12 @@ def classify_waste():
         print('\n')
         print("Model Test End at ", now)
         print(tLst)
-
+        print(tLst[0])
+        print(waste_types[tLst[0]])
+        
         classification_result = waste_types[tLst[0]]
 
-        return jsonify(classification_result,tLst)
+        return jsonify(classification_result)
 
 @app.route('/upload', methods=['POST'])
 def upload_image():
@@ -328,7 +330,7 @@ def upload_image():
 
     try:
         # 이미지 파일명 설정
-        file_name = f"captured-image-{int(time.time())}.jpg"
+        file_name = f"captured-image.jpg"
         save_path = os.path.join(SAVE_FOLDER, file_name)
 
         # Base64 문자열을 바이너리 데이터로 변환하여 저장

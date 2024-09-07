@@ -87,8 +87,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         classificationResult.innerHTML = '';
     });
 
-    function displayClassificationResult(result,tLst) {
-        alert(tLst);
+    function displayClassificationResult(result) {
         classificationResult.innerHTML = `
             <div class="flex items-center space-x-2">
                 <i data-feather="${result.icon}" class="h-6 w-6 ${result.icon_color}"></i>
