@@ -169,6 +169,7 @@ def index():
 
 @app.route('/classify', methods=['POST'])
 def classify_waste():
+    
     # 실제 구현에서는 여기에 이미지 분류 로직을 추가해야 합니다.
     # 이 예제에서는 랜덤하게 쓰레기 유형을 선택합니다.
     classification_result = random.choice(random.choice(waste_types)['subcategories'])

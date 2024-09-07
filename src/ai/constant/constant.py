@@ -23,6 +23,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 torch.manual_seed(777)
 
+threshod = 0.1
 
 opt = argparse.Namespace(
     # weights = ['runs/train/newconn_model/weights/last.pt'],

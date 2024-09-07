@@ -20,7 +20,6 @@ from utils.torch_utils import select_device, time_synchronized
 from constant.constant import *
 from functions.Basefunctions_for_ai import *
 
-
 def detection(data,
          weights=None,
          batch_size=16,
@@ -40,6 +39,8 @@ def detection(data,
          plots=True,
          log_imgs=0):  # number of logged images
 
+    tRet_lst = []
+    
     # Initialize/load model and set device
     training = model is not None
     if training:  # called by train.py
@@ -152,6 +153,9 @@ def detection(data,
                         tbox_original = scale_coords(img[si].shape[1:], tbox_original, shapes[si][0], shapes[si][1])
                         tbox_original = (xyxy2xywh(tbox_original) / gn).tolist()
                         tbox_class = tcls
+                        
+                        print("\ntbox_original : ",tbox_original,"\n")
+                        print("\ntbox_class",tbox_class,"\n")
 
                         # write log by imagefile - target box
                         for k in range(0, nl):
@@ -170,6 +174,8 @@ def detection(data,
                 for *xyxy, conf, cls in x:
                     xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
                     line = (cls, *xywh, conf) if save_conf else (cls, *xywh)  # label format
+                    if conf >= threshod :
+                        tRet_lst.append(int(cls.item()))
                     with open(save_dir / 'labels' / (path.stem + '.txt'), 'a') as f:
                         f.write(('%g ' * len(line)).rstrip() % line + '\n')
 
@@ -368,15 +374,5 @@ def detection(data,
         df_export.to_csv(save_dir / 'test_log.csv', index=False)
 
 
-    return (mp, mr, map50, map, *(loss.cpu() / len(dataloader)).tolist()), maps, t
-
-
-import os
-
-paths = ['src/ai/data/train/', '/data/val/', '/data/test/']
-
-for path in paths:
-    if os.path.exists(path):
-        print(f"Directory {path} exists.")
-    else:
-        print(f"Directory {path} does not exist.")
+    # return (mp, mr, map50, map, *(loss.cpu() / len(dataloader)).tolist()), maps, t
+    return tRet_lst

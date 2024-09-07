@@ -15,7 +15,7 @@ if opt.task in ['val', 'test']:  # run normally
     print("Model Test Start at ", now)
     print('\n')
 
-    detection(opt.data,
+    tLst = detection(opt.data,
          opt.weights,
          opt.batch_size,
          opt.img_size,
@@ -29,7 +29,7 @@ if opt.task in ['val', 'test']:  # run normally
          save_txt=opt.save_txt,
          save_conf=opt.save_conf,
          )
-
     now = datetime.now()
     print('\n')
     print("Model Test End at ", now)
+    print(tLst)
