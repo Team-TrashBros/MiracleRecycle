@@ -10,16 +10,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const capturedImage = document.getElementById('captured-image');
 
     let stream = null;
-
+    
     startCameraButton.addEventListener('click', async () => {
         try {
-            stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            stream = await navigator.mediaDevices.getUserMedia({video:true})
             video.srcObject = stream;
         } catch (err) {
-            console.error("Error accessing the camera:", err);
+            alert("Error accessing the camera", err);
         }
     });
-
+    
     captureImageButton.addEventListener('click', () => {
         const canvas = document.createElement('canvas');
         canvas.width = video.videoWidth;
