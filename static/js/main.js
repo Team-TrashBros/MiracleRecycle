@@ -81,6 +81,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
         for(i = 0; i < len; i++) {
             const imageName = result[i].filename; // 불러올 이미지 파일 이름
             const imagePath = `/img/${imageName}`; // Flask 서버에서 제공하는 경로
+
+            const imgName = result[i].guide; // 불러올 이미지 파일 이름
+            const imgPath = `/image/${imgName}`; // Flask 서버에서 제공하는 경로
             text += `
             <div class="aspect-h-9 bg-black rounded-lg overflow-hidden">
                      <img src="${imagePath}" alt="Captured waste" class="object-cover" style="margin: 0 auto;"/>
@@ -91,7 +94,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             </div>
             <p class="text-gray-600">${result[i].description}</p>
             <div class="bg-blue-100 p-4 rounded-md">
-                <h4 class="font-semibold text-blue-800 mb-2">처리 방법:</h4>
+                <h4 class="font-semibold text-blue-800 mb-2">Disposal method:</h4>
                 <p class="text-blue-700">${result[i].disposal_method}</p>
                 <div class="flex justify-center space-x-4">
                     <!-- Trigger Button -->
@@ -103,8 +106,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
             <div id="myModal_${i}" class="modal">
                 <div class="modal-content">
                     <span class="close" data-index="${i}">&times;</span>
-                    <h2>Modal Title_${i}</h2>
-                    <p>This is a simple modal window.</p>
+                    <div class="aspect-h-9 bg-black rounded-lg overflow-hidden">
+                        <img src="${imgPath}" alt="Captured waste" class="object-cover" style="margin: 0 auto;"/>
+                    </div>
                 </div>
             </div>
         `
