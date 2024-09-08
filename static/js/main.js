@@ -93,10 +93,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
             <div class="bg-blue-100 p-4 rounded-md">
                 <h4 class="font-semibold text-blue-800 mb-2">처리 방법:</h4>
                 <p class="text-blue-700">${result[i].disposal_method}</p>
+                <div class="flex justify-center space-x-4">
+                    <!-- Trigger Button -->
+                    <button id="openModal_${i}" class="open-button inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Detail</button>
+                </div>
+            </div>
+
+            <!-- Modal Structure -->
+            <div id="myModal_${i}" class="modal">
+                <div class="modal-content">
+                    <span class="close" data-index="${i}">&times;</span>
+                    <h2>Modal Title_${i}</h2>
+                    <p>This is a simple modal window.</p>
+                </div>
             </div>
         `
         }
-        
+
         classificationResult.innerHTML = text;
         // classificationResult.innerHTML = `
         //     <div class="flex items-center space-x-2">
@@ -111,6 +124,32 @@ document.addEventListener('DOMContentLoaded', (event) => {
         // `;
         classificationResult.classList.remove('hidden');
         feather.replace();
+
+        // 이벤트 리스너 추가
+        for (let i = 0; i < len; i++) {
+            // 모달 및 버튼 요소 가져오기
+            const modal = document.getElementById(`myModal_${i}`);
+            const btn = document.getElementById(`openModal_${i}`);
+            const closeBtn = modal.querySelector('.close');
+
+            // 모달 열기 버튼 클릭 시 모달 열기
+            btn.addEventListener('click', () => {
+                modal.style.display = 'block';
+            });
+
+            // 닫기 버튼 클릭 시 모달 닫기
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+
+            // 모달 외부 클릭 시 모달 닫기
+            window.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+
     }
 
     feather.replace();
