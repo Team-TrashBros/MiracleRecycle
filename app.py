@@ -15,7 +15,8 @@ app = Flask(__name__)
 # 저장할 경로 설정
 SAVE_FOLDER = 'src/ai/data/test'  # 원하는 저장 경로로 설정
 os.makedirs(SAVE_FOLDER, exist_ok=True)  # 폴더가 없으면 생성
-app.config['UPLOAD_FOLDER'] = SAVE_FOLDER
+UPLOAD_FOLDER = 'src/ai/test/result'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # names: [ 'can_steel', 'can_aluminium', 'paper', 'PET_transparent' ,'PET_color' ,'plastic_PE', 'plastic_PP', 'plastic_PS', 'styrofoam' ,'plastic_bag' ,'glass_brown' ,'glass_green' ,'glass_transparent' ,'battery' ,'light' ]
 
 # waste_types = [
@@ -318,7 +319,7 @@ def classify_waste():
         cnt = 0
         for i in tLst:
             result[cnt] = waste_types[i]
-            result[cnt]['filename'] = cnt+'_'+i+'.jpg'
+            result[cnt]['filename'] = str(cnt+1)+'_'+str(i)+'.jpg'
             print(result[cnt]['filename'])
             cnt += 1
         
@@ -349,7 +350,7 @@ def upload_image():
         print(f"이미지 저장 실패: {e}")
         return jsonify({'message': '이미지 저장 실패'}), 500
 
-@app.route('/test/<filename>')
+@app.route('/img/<filename>')
 def serve_image(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
