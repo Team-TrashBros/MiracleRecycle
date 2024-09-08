@@ -111,17 +111,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
 
         classificationResult.innerHTML = text;
-        // classificationResult.innerHTML = `
-        //     <div class="flex items-center space-x-2">
-        //         <i data-feather="${result.icon}" class="h-6 w-6 ${result.icon_color}"></i>
-        //         <h3 class="text-xl font-semibold">${result.name}</h3>
-        //     </div>
-        //     <p class="text-gray-600">${result.description}</p>
-        //     <div class="bg-blue-100 p-4 rounded-md">
-        //         <h4 class="font-semibold text-blue-800 mb-2">처리 방법:</h4>
-        //         <p class="text-blue-700">${result.disposal_method}</p>
-        //     </div>
-        // `;
         classificationResult.classList.remove('hidden');
         feather.replace();
 

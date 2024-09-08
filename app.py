@@ -17,264 +17,110 @@ SAVE_FOLDER = 'src/ai/data/test'  # 원하는 저장 경로로 설정
 os.makedirs(SAVE_FOLDER, exist_ok=True)  # 폴더가 없으면 생성
 UPLOAD_FOLDER = 'src/ai/test/result'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-# names: [ 'can_steel', 'can_aluminium', 'paper', 'PET_transparent' ,'PET_color' ,'plastic_PE', 'plastic_PP', 'plastic_PS', 'styrofoam' ,'plastic_bag' ,'glass_brown' ,'glass_green' ,'glass_transparent' ,'battery' ,'light' ]
-
-# waste_types = [
-#     {
-#         "category": "01. 금속캔",
-#         "subcategories": [
-#             {
-#                 "name": "001. 철캔",
-#                 "description": "철로 만들어진 음료 및 식품 용기",
-#                 "disposal_method": "철캔 전용 수거함에 버리세요. 내용물을 비우고 가능한 압축해주세요.",
-#                 "icon": "can",
-#                 "icon_color": "text-gray-600"
-#             },
-#             {
-#                 "name": "002. 알루미늄캔",
-#                 "description": "알루미늄으로 만들어진 음료 용기",
-#                 "disposal_method": "알루미늄캔 전용 수거함에 버리세요. 내용물을 비우고 가능한 압축해주세요.",
-#                 "icon": "can",
-#                 "icon_color": "text-gray-400"
-#             }
-#         ]
-#     },
-#     {
-#         "category": "02. 종이",
-#         "subcategories": [
-#             {
-#                 "name": "001. 종이",
-#                 "description": "신문, 잡지, 책, 노트, 종이 상자 등",
-#                 "disposal_method": "종이류 전용 수거함에 버리세요. 물기에 젖지 않도록 주의하세요.",
-#                 "icon": "file-text",
-#                 "icon_color": "text-yellow-700"
-#             }
-#         ]
-#     },
-#     {
-#         "category": "03. 페트병",
-#         "subcategories": [
-#             {
-#                 "name": "001. 무색단일",
-#                 "description": "투명한 페트병",
-#                 "disposal_method": "라벨을 제거하고 내용물을 비운 후 페트병 전용 수거함에 버리세요.",
-#                 "icon": "bottle",
-#                 "icon_color": "text-blue-300"
-#             },
-#             {
-#                 "name": "002. 유색단일",
-#                 "description": "색깔이 있는 페트병",
-#                 "disposal_method": "라벨을 제거하고 내용물을 비운 후 페트병 전용 수거함에 버리세요.",
-#                 "icon": "bottle",
-#                 "icon_color": "text-green-500"
-#             }
-#         ]
-#     },
-#     {
-#         "category": "04. 플라스틱",
-#         "subcategories": [
-#             {
-#                 "name": "001. PE",
-#                 "description": "포리에틸렌으로 만든 플라스틱 제품",
-#                 "disposal_method": "내용물을 비우고 깨끗이 씻은 후 플라스틱 수거함에 버리세요.",
-#                 "icon": "package",
-#                 "icon_color": "text-blue-500"
-#             },
-#             {
-#                 "name": "002. PP",
-#                 "description": "폴리프로필렌으로 만든 플라스틱 제품",
-#                 "disposal_method": "내용물을 비우고 깨끗이 씻은 후 플라스틱 수거함에 버리세요.",
-#                 "icon": "package",
-#                 "icon_color": "text-red-500"
-#             },
-#             {
-#                 "name": "003. PS",
-#                 "description": "폴리스티렌으로 만든 플라스틱 제품",
-#                 "disposal_method": "내용물을 비우고 깨끗이 씻은 후 플라스틱 수거함에 버리세요.",
-#                 "icon": "package",
-#                 "icon_color": "text-purple-500"
-#             }
-#         ]
-#     },
-#     {
-#         "category": "05. 스티로폼",
-#         "subcategories": [
-#             {
-#                 "name": "001. 스티로폼",
-#                 "description": "발포 폴리스티렌으로 만든 포장재",
-#                 "disposal_method": "이물질을 제거하고 부피를 줄인 후 스티로폼 전용 수거함에 버리세요.",
-#                 "icon": "box",
-#                 "icon_color": "text-white"
-#             }
-#         ]
-#     },
-#     {
-#         "category": "06. 비닐",
-#         "subcategories": [
-#             {
-#                 "name": "001. 비닐",
-#                 "description": "비닐 봉투, 포장재 등",
-#                 "disposal_method": "이물질을 제거하고 깨끗이 씻은 후 비닐 전용 수거함에 버리세요.",
-#                 "icon": "shopping-bag",
-#                 "icon_color": "text-gray-300"
-#             }
-#         ]
-#     },
-#     {
-#         "category": "07. 유리병",
-#         "subcategories": [
-#             {
-#                 "name": "001. 갈색",
-#                 "description": "갈색 유리병",
-#                 "disposal_method": "내용물을 비우고 깨끗이 씻은 후 유리병 수거함에 버리세요.",
-#                 "icon": "wine-bottle",
-#                 "icon_color": "text-yellow-900"
-#             },
-#             {
-#                 "name": "002. 녹색",
-#                 "description": "녹색 유리병",
-#                 "disposal_method": "내용물을 비우고 깨끗이 씻은 후 유리병 수거함에 버리세요.",
-#                 "icon": "wine-bottle",
-#                 "icon_color": "text-green-700"
-#             },
-#             {
-#                 "name": "003. 투명",
-#                 "description": "투명한 유리병",
-#                 "disposal_method": "내용물을 비우고 깨끗이 씻은 후 유리병 수거함에 버리세요.",
-#                 "icon": "wine-bottle",
-#                 "icon_color": "text-blue-200"
-#             }
-#         ]
-#     },
-#     {
-#         "category": "08. 건전지",
-#         "subcategories": [
-#             {
-#                 "name": "001. 건전지",
-#                 "description": "일회용 또는 충전식 건전지",
-#                 "disposal_method": "전용 수거함이나 주민센터에 비치된 수거함에 버리세요.",
-#                 "icon": "battery",
-#                 "icon_color": "text-red-600"
-#             }
-#         ]
-#     },
-#     {
-#         "category": "09. 형광등",
-#         "subcategories": [
-#             {
-#                 "name": "001. 형광등",
-#                 "description": "형광등, LED 전구 등",
-#                 "disposal_method": "깨지지 않도록 주의하여 전용 수거함에 버리세요.",
-#                 "icon": "zap",
-#                 "icon_color": "text-yellow-400"
-#             }
-#         ]
-#     }
-# ]
 
 waste_types = [
     {
-        "name": "001. 철캔",
-        "description": "철로 만들어진 음료 및 식품 용기",
-        "disposal_method": "철캔 전용 수거함에 버리세요. 내용물을 비우고 가능한 압축해주세요.",
+        "name": "001. Can_steel",
+        "description": "Containers made of steel for beverages and food.",
+        "disposal_method": "Dispose of in the steel can recycling bin. Empty the contents and compress if possible.",
         "icon": "can",
         "icon_color": "text-gray-600"
     },
     {
-        "name": "002. 알루미늄캔",
-        "description": "알루미늄으로 만들어진 음료 용기",
-        "disposal_method": "알루미늄캔 전용 수거함에 버리세요. 내용물을 비우고 가능한 압축해주세요.",
+        "name": "002. Can_aluminium",
+        "description": "Containers made of aluminium for beverages.",
+        "disposal_method": "Dispose of in the aluminium can recycling bin. Empty the contents and compress if possible.",
         "icon": "can",
         "icon_color": "text-gray-400"
     },
     {
-        "name": "001. 종이",
-        "description": "신문, 잡지, 책, 노트, 종이 상자 등",
-        "disposal_method": "종이류 전용 수거함에 버리세요. 물기에 젖지 않도록 주의하세요.",
+        "name": "003. Paper",
+        "description": "Newspapers, magazines, books, notebooks, paper boxes, etc.",
+        "disposal_method": "Dispose of in the paper recycling bin. Avoid getting it wet.",
         "icon": "file-text",
         "icon_color": "text-yellow-700"
     },
     {
-        "name": "001. 무색단일",
-        "description": "투명한 페트병",
-        "disposal_method": "라벨을 제거하고 내용물을 비운 후 페트병 전용 수거함에 버리세요.",
+        "name": "004. PET_transparent",
+        "description": "Transparent PET bottles.",
+        "disposal_method": "Remove labels, empty the contents, and dispose of in the PET bottle recycling bin.",
         "icon": "bottle",
         "icon_color": "text-blue-300"
     },
     {
-        "name": "002. 유색단일",
-        "description": "색깔이 있는 페트병",
-        "disposal_method": "라벨을 제거하고 내용물을 비운 후 페트병 전용 수거함에 버리세요.",
+        "name": "005. PET_color",
+        "description": "Colored PET bottles.",
+        "disposal_method": "Remove labels, empty the contents, and dispose of in the PET bottle recycling bin.",
         "icon": "bottle",
         "icon_color": "text-green-500"
     },
     {
-        "name": "001. PE",
-        "description": "포리에틸렌으로 만든 플라스틱 제품",
-        "disposal_method": "내용물을 비우고 깨끗이 씻은 후 플라스틱 수거함에 버리세요.",
+        "name": "006. Plastic_PE",
+        "description": "Plastic products made from polyethylene.",
+        "disposal_method": "Empty, clean, and dispose of in the plastic recycling bin.",
         "icon": "package",
         "icon_color": "text-blue-500"
     },
     {
-        "name": "002. PP",
-        "description": "폴리프로필렌으로 만든 플라스틱 제품",
-        "disposal_method": "내용물을 비우고 깨끗이 씻은 후 플라스틱 수거함에 버리세요.",
+        "name": "007. Plastic_PP",
+        "description": "Plastic products made from polypropylene.",
+        "disposal_method": "Empty, clean, and dispose of in the plastic recycling bin.",
         "icon": "package",
         "icon_color": "text-red-500"
     },
     {
-        "name": "003. PS",
-        "description": "폴리스티렌으로 만든 플라스틱 제품",
-        "disposal_method": "내용물을 비우고 깨끗이 씻은 후 플라스틱 수거함에 버리세요.",
+        "name": "008. Plastic_PS",
+        "description": "Plastic products made from polystyrene.",
+        "disposal_method": "Empty, clean, and dispose of in the plastic recycling bin.",
         "icon": "package",
         "icon_color": "text-purple-500"
     },
     {
-        "name": "001. 스티로폼",
-        "description": "발포 폴리스티렌으로 만든 포장재",
-        "disposal_method": "이물질을 제거하고 부피를 줄인 후 스티로폼 전용 수거함에 버리세요.",
+        "name": "009. Styrofoam",
+        "description": "Packaging materials made from expanded polystyrene.",
+        "disposal_method": "Remove contaminants, compress, and dispose of in the Styrofoam recycling bin.",
         "icon": "box",
         "icon_color": "text-white"
     },
     {
-        "name": "001. 비닐",
-        "description": "비닐 봉투, 포장재 등",
-        "disposal_method": "이물질을 제거하고 깨끗이 씻은 후 비닐 전용 수거함에 버리세요.",
+        "name": "010. Plastic_bag",
+        "description": "Plastic bags, packaging materials, etc.",
+        "disposal_method": "Remove contaminants, clean, and dispose of in the plastic bag recycling bin.",
         "icon": "shopping-bag",
         "icon_color": "text-gray-300"
     },
     {
-        "name": "001. 갈색",
-        "description": "갈색 유리병",
-        "disposal_method": "내용물을 비우고 깨끗이 씻은 후 유리병 수거함에 버리세요.",
+        "name": "011. Glass_brown",
+        "description": "Brown glass bottles.",
+        "disposal_method": "Empty, clean, and dispose of in the glass bottle recycling bin.",
         "icon": "wine-bottle",
         "icon_color": "text-yellow-900"
     },
     {
-        "name": "002. 녹색",
-        "description": "녹색 유리병",
-        "disposal_method": "내용물을 비우고 깨끗이 씻은 후 유리병 수거함에 버리세요.",
+        "name": "012. Glass_green",
+        "description": "Green glass bottles.",
+        "disposal_method": "Empty, clean, and dispose of in the glass bottle recycling bin.",
         "icon": "wine-bottle",
         "icon_color": "text-green-700"
     },
     {
-        "name": "003. 투명",
-        "description": "투명한 유리병",
-        "disposal_method": "내용물을 비우고 깨끗이 씻은 후 유리병 수거함에 버리세요.",
+        "name": "013. Glass_transparent",
+        "description": "Transparent glass bottles.",
+        "disposal_method": "Empty, clean, and dispose of in the glass bottle recycling bin.",
         "icon": "wine-bottle",
         "icon_color": "text-blue-200"
     },
     {
-        "name": "001. 건전지",
-        "description": "일회용 또는 충전식 건전지",
-        "disposal_method": "전용 수거함이나 주민센터에 비치된 수거함에 버리세요.",
+        "name": "014. Battery",
+        "description": "Disposable or rechargeable batteries.",
+        "disposal_method": "Dispose of in the designated recycling bin or at the collection point in community centers.",
         "icon": "battery",
         "icon_color": "text-red-600"
     },
     {
-        "name": "001. 형광등",
-        "description": "형광등, LED 전구 등",
-        "disposal_method": "깨지지 않도록 주의하여 전용 수거함에 버리세요.",
+        "name": "015. Light",
+        "description": "Fluorescent lights, LED bulbs, etc.",
+        "disposal_method": "Dispose of carefully in the designated recycling bin to avoid breaking.",
         "icon": "zap",
         "icon_color": "text-yellow-400"
     }
@@ -323,10 +169,8 @@ def classify_waste():
             print(result[cnt]['filename'])
             cnt += 1
         
-        classification_result = waste_types[tLst[0]]
         print(result)
         return jsonify(result)
-        # return jsonify(classification_result)
 
 @app.route('/upload', methods=['POST'])
 def upload_image():
